@@ -99,7 +99,7 @@ Matrix4 rotationMatrix(float angle, Vector3 axis) {
     float w = cos(angle), w2 = w * w;
 
     //Quaternion simplified matrix:
-    Matrix rotationMatrix;
+    Matrix4 rotationMatrix;
     rotationMatrix(0,0) = w2 + x2 - y2 - z2;
     rotationMatrix(0,1) = 2 * x * y - 2 * w * z;
     rotationMatrix(0,2) = 2 * x * z + 2 * w * y;
@@ -133,7 +133,7 @@ Matrix4 translationMatrix(Vector3 displacement) {
 }
 
 Matrix4 scaleMatrix(float x, float y, float z) {
-    Matrix scaleMatrix;
+    Matrix4 scaleMatrix;
     scaleMatrix(0,0) = x;
     scaleMatrix(1,1) = y;
     scaleMatrix(2,2) = z;
