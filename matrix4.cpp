@@ -2,6 +2,7 @@
 #include "vector3.h"
 #include "point3.h"
 #include <GL/gl.h>
+#include <math.h>
 
 Matrix4::Matrix4() {
     // Inicializa como identidade:
@@ -85,7 +86,42 @@ void Matrix4::applyGL() const {
 }
 
 Matrix4 rotationMatrix(float angle, Vector3 axis) {
+    //Q = w + u * sin(angle)
+    //w = cos(angle)
+    //u is the normalized rotation axis:
+    //u = (axis_x, axis_y, axis_z)
 
+    //Normalize axis and multiplies by the sin of the angle:
+    axis = sin(angle) * axis.normalize();
+    float x = axis.x, x2 = x * x;
+    float y = axis.y, y2 = y * y;
+    float z = axis.z, z2 = z * z;
+    float w = cos(angle), w2 = w * w;
+
+    //Quaternion simplified matrix:
+    Matrix rotationMatrix;
+    rotationMatrix(0,0) = w2 + x2 - y2 - z2;
+    rotationMatrix(0,1) = 2 * x * y - 2 * w * z;
+    rotationMatrix(0,2) = 2 * x * z + 2 * w * y;
+    rotationMatrix(0,3) = 0.0;
+
+    rotationMatrix(1,0) = 2 * x * y + 2 * w * z;
+    rotationMatrix(1,1) = w2 - x2 + y2 - z2;
+    rotationMatrix(1,2) = 2 * y * z - 2 * w * x;
+    rotationMatrix(1,3) = 0.0;
+
+    rotationMatrix(2,0) = 2 * x * z - 2 * w * y;
+    rotationMatrix(2,1) = 2 * y * z + 2 * w * x;
+    rotationMatrix(2,2) = w2 - x2 - y2 + z2;
+    rotationMatrix(2,3) = 0.0;
+
+    rotationMatrix(3,0) = 0.0;
+    rotationMatrix(3,1) = 0.0;
+    rotationMatrix(3,2) = 0.0;
+    rotationMatrix(3,3) = w2 + x2 + y2 + z2;
+
+    //To rotate just multiply rotationMatrix * Vector3
+    return rotationMatrix;
 }
 
 Matrix4 translationMatrix(Vector3 displacement) {
@@ -97,5 +133,9 @@ Matrix4 translationMatrix(Vector3 displacement) {
 }
 
 Matrix4 scaleMatrix(float x, float y, float z) {
-
+    Matrix scaleMatrix;
+    scaleMatrix(0,0) = x;
+    scaleMatrix(1,1) = y;
+    scaleMatrix(2,2) = z;
+    return scaleMatrix;
 }
