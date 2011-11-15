@@ -83,3 +83,19 @@ const float& Matrix4::operator()(unsigned int row, unsigned int column) const {
 void Matrix4::applyGL() const {
     glMultMatrixf(this->matrix);
 }
+
+Matrix4 rotationMatrix(float angle, Vector3 axis) {
+
+}
+
+Matrix4 translationMatrix(Vector3 displacement) {
+    Matrix4 translationMatrix;
+    for (int i = 0; i < 3; i++) {
+        translationMatrix(i, 3) = displacement(i);
+    }
+    return translationMatrix;
+}
+
+Matrix4 scaleMatrix(float x, float y, float z) {
+
+}
