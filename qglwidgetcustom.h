@@ -3,26 +3,32 @@
 
 #include <QGLWidget>
 #include <QWidget>
+#include <QtEvents>
+#include "camera.h"
 #include "object.h"
+#include "point3.h"
+#include "vector3.h"
 
 class QGLWidgetCustom : public QGLWidget
 {
     Q_OBJECT
 public:
+    float keyTranslationUnit;
+    Camera camera;
     explicit QGLWidgetCustom(QWidget *parent = 0);
     void addObject(Object* object);
-    void lookAt(int x, int y, int z, int centerX, int centerY, int centerZ, int upX, int upY,int upZ);
-    void setCamera(int x, int y, int z, int centerX, int centerY, int centerZ, int upX, int upY,int upZ);
 signals:
 
 public slots:
 
 protected:
     QList<Object*> objects;
-    //Camera camera;
+    Point3 cameraPosition;
+    Point3 cameraLookTo;
+    Vector3 cameraUpVector;
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
+    virtual void keyPressEvent(QKeyEvent *e);
 };
-
 #endif // QGLWIDGETCUSTOM_H

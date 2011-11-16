@@ -1,8 +1,8 @@
+#include <GL/gl.h>
+#include <math.h>
 #include "matrix4.h"
 #include "vector3.h"
 #include "point3.h"
-#include <GL/gl.h>
-#include <math.h>
 
 Matrix4::Matrix4() {
     // Inicializa como identidade:
@@ -88,17 +88,17 @@ void Matrix4::applyGL() const {
 Matrix4 rotationMatrix(float angle, Vector3 axis) {
     //Q = w + u * sin(angle)
     //w = cos(angle)
-    //u is the normalized rotation axis:
+    //u é o vetor normalizado do eixo de rotação:
     //u = (axis_x, axis_y, axis_z)
 
-    //Normalize axis and multiplies by the sin of the angle:
+    //Normaliza o eixo e multiplica pelo seno do ângulo:
     axis = sin(angle) * axis.normalize();
     float x = axis.x, x2 = x * x;
     float y = axis.y, y2 = y * y;
     float z = axis.z, z2 = z * z;
     float w = cos(angle), w2 = w * w;
 
-    //Quaternion simplified matrix:
+    //Matrix de rotação do quatérnio:
     Matrix4 rotationMatrix;
     rotationMatrix(0,0) = w2 + x2 - y2 - z2;
     rotationMatrix(0,1) = 2 * x * y - 2 * w * z;
@@ -120,7 +120,7 @@ Matrix4 rotationMatrix(float angle, Vector3 axis) {
     rotationMatrix(3,2) = 0.0;
     rotationMatrix(3,3) = w2 + x2 + y2 + z2;
 
-    //To rotate just multiply rotationMatrix * Vector3
+    //Para rotacionar, basta multiplicar rotationMatrix * Vector3
     return rotationMatrix;
 }
 

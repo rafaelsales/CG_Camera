@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "torusobject.h"
+#include <GL/gl.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     TorusObject* torus = new TorusObject();
-    ui->widget->addObject(torus);
+    ui->glwidget->addObject(torus);
 }
 
 MainWindow::~MainWindow()

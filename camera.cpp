@@ -1,7 +1,10 @@
-#include "GL/glut.h"
+#include <GL/glut.h>
 #include "camera.h"
 #include "vector3.h"
 #include "point3.h"
+
+Camera::Camera() {
+}
 
 /* Camera na posição position, olhando para lookTo, direção vertical up */
 Camera::Camera(Point3& position, Point3& lookTo, Vector3& up) {
@@ -12,6 +15,9 @@ Camera::~Camera(){
 
 /* Mesmo que construtor */
 void Camera::lookTo(Point3& position, Point3& lookTo, Vector3& up) {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
     gluLookAt(position.x, position.y, position.z, lookTo.x, lookTo.y, lookTo.z, up.x, up.y, up.z);
 }
 
