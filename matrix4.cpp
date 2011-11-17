@@ -55,6 +55,7 @@ Vector3 Matrix4::operator*(const Vector3 & vector) const {
         for (int j = 0; j < 3; j++) {
             newVector[i] += (*this)(i,j) * vector(j);
         }
+        newVector[i] += (*this)(i,3);
     }
     return Vector3(newVector[0], newVector[1], newVector[2]);
 }
@@ -64,6 +65,7 @@ Point3 Matrix4::operator*(const Point3 & point) const {
         for (int j = 0; j < 3; j++) {
             newPoint[i] += (*this)(i,j) * point(j);
         }
+        newPoint[i] += (*this)(i,3);
     }
     return Point3(newPoint[0], newPoint[1], newPoint[2]);
 }
@@ -85,7 +87,7 @@ void Matrix4::applyGL() const {
     glMultMatrixf(this->matrix);
 }
 
-Matrix4 rotationMatrix(float angle, Vector3 axis) {
+Matrix4 Matrix4::rotationMatrix(float angle, Vector3 axis) {
     //Q = w + u * sin(angle)
     //w = cos(angle)
     //u é o vetor normalizado do eixo de rotação:
@@ -124,7 +126,7 @@ Matrix4 rotationMatrix(float angle, Vector3 axis) {
     return rotationMatrix;
 }
 
-Matrix4 translationMatrix(Vector3 displacement) {
+Matrix4 Matrix4::translationMatrix(Vector3 displacement) {
     Matrix4 translationMatrix;
     for (int i = 0; i < 3; i++) {
         translationMatrix(i, 3) = displacement(i);
@@ -132,7 +134,7 @@ Matrix4 translationMatrix(Vector3 displacement) {
     return translationMatrix;
 }
 
-Matrix4 scaleMatrix(float x, float y, float z) {
+Matrix4 Matrix4::scaleMatrix(float x, float y, float z) {
     Matrix4 scaleMatrix;
     scaleMatrix(0,0) = x;
     scaleMatrix(1,1) = y;

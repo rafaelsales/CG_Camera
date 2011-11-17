@@ -14,6 +14,8 @@ class QGLWidgetCustom : public QGLWidget
     Q_OBJECT
 public:
     float keyTranslationUnit;
+    float rotationFactor;
+    QPoint mouseLastPosition;
     Camera camera;
     explicit QGLWidgetCustom(QWidget *parent = 0);
     void addObject(Object* object);
@@ -30,5 +32,6 @@ protected:
     void resizeGL(int w, int h);
     void paintGL();
     virtual void keyPressEvent(QKeyEvent *e);
+    virtual void mouseMoveEvent(QMouseEvent *e);
 };
 #endif // QGLWIDGETCUSTOM_H

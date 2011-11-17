@@ -29,10 +29,10 @@ public:
 
     /* Multiplica a matriz atual do OpenGL com a matriz atual usando glMultMatrix() */
     void applyGL() const;
+
+    static Matrix4 rotationMatrix(float angle, Vector3 axis); /* Matrix de rotação geral por ângulo angle e eixo de rotação axis */
+    static Matrix4 scaleMatrix(float x, float y, float z); /* Matriz de escala */
+    static Matrix4 translationMatrix(Vector3 displacement); /* Matriz de translação com veto displacement */
+
 };
-
-Matrix4 rotationMatrix(float angle, Vector3 axis); /* Matrix de rotação geral por ângulo angle e eixo de rotação axis */
-Matrix4 translationMatrix(Vector3 displacement); /* Matriz de translação com veto displacement */
-Matrix4 scaleMatrix(float x, float y, float z); /* Matriz de escala */
-
 #endif // MATRIX4_H
